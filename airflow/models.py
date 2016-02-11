@@ -905,7 +905,7 @@ class TaskInstance(Base):
         session.commit()
         self.job_id = job_id
         iso = datetime.now().isoformat()
-        self.hostname = socket.gethostname()
+        self.hostname = configuration.get('core', 'hostname') or socket.gethostname()
         self.operator = task.__class__.__name__
 
         if self.state == State.RUNNING:

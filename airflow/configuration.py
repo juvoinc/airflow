@@ -79,6 +79,7 @@ defaults = {
         'sql_alchemy_pool_size': 5,
         'sql_alchemy_pool_recycle': 3600,
         'dagbag_import_timeout': 30,
+        'hostname': None,
     },
     'webserver': {
         'base_url': 'http://localhost:8080',
@@ -140,6 +141,10 @@ base_log_folder = {AIRFLOW_HOME}/logs
 # An S3 location can be provided for log backups
 # For S3, use the full URL to the base folder (starting with "s3://...")
 s3_log_folder = None
+
+# Override for the hostname that the task instance is running on.  You can set this to to a
+# an ip address or hostname.
+hostname = None
 
 # The executor class that airflow should use. Choices include
 # SequentialExecutor, LocalExecutor, CeleryExecutor

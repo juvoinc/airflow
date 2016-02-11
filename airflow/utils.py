@@ -24,6 +24,7 @@ import shutil
 import signal
 import six
 import smtplib
+import socket
 from tempfile import mkdtemp
 
 from alembic.config import Config
@@ -309,6 +310,11 @@ def validate_key(k, max_length=250):
     else:
         return True
 
+def get_hostname():
+    """
+    Returns the hostname for this machine from either the config or as provided from the socket
+    """
+    return configuration.get('core', 'hostname') or socket.gethostname()
 
 def date_range(
         start_date,

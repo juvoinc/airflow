@@ -628,7 +628,7 @@ class Airflow(BaseView):
         from airflow import ascii as ascii_
         return render_template(
             'airflow/traceback.html',
-            hostname=socket.gethostname(),
+            hostname=utils.get_hostname(),
             nukular=ascii_.nukular,
             info=traceback.format_exc()), 500
 

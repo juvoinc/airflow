@@ -72,8 +72,12 @@ from airflow.utils.dates import cron_presets, date_range as utils_date_range
 from airflow.utils.db import provide_session
 from airflow.utils.decorators import apply_defaults
 from airflow.utils.email import send_email
+<<<<<<< HEAD
 from airflow.utils.helpers import (
     as_tuple, is_container, is_in, validate_key, pprinttable)
+=======
+from airflow.utils.helpers import (as_tuple, get_hostname, is_container, is_in, validate_key)
+>>>>>>> f1bef22f... Use get_hostname instead of socket.gethostname()
 from airflow.utils.logging import LoggingMixin
 from airflow.utils.operator_resources import Resources
 from airflow.utils.state import State
@@ -1264,7 +1268,7 @@ class TaskInstance(Base):
         self.test_mode = test_mode
         self.refresh_from_db(session=session, lock_for_update=True)
         self.job_id = job_id
-        self.hostname = socket.getfqdn()
+        self.hostname = get_hostname()
         self.operator = task.__class__.__name__
 
         if not ignore_all_deps and not ignore_ti_state and self.state == State.SUCCESS:

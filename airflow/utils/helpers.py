@@ -27,10 +27,12 @@ import imp
 import os
 import re
 import signal
+import socket
 import subprocess
 import sys
 import warnings
 
+from airflow import configuration
 from airflow.exceptions import AirflowException
 
 # When killing processes, time to wait after issuing a SIGTERM before issuing a
@@ -319,6 +321,13 @@ def kill_descendant_processes(logger, pids_to_kill=None):
         logger.warn("Killed all descendant processes of {} PID: {}"
                     .format(this_process.cmdline(),
                             this_process.pid))
+
+
+def get_hostname():
+    """
+    Returns the hostname for this machine from either the config or as provided from the socket
+    """
+    return configuration.get('core', 'hostname') or socket.getfqdn()
 
 
 class AirflowImporter(object):

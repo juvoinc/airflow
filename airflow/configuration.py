@@ -87,11 +87,14 @@ def run_command(command):
 
     return output
 
-
 DEFAULT_CONFIG = """\
 [core]
 # The home folder for airflow, default is ~/airflow
 airflow_home = {AIRFLOW_HOME}
+
+# Override the hostname of this instance of airflow
+# if not provided falls back to socket.gethostname()
+hostname =
 
 # The folder where your airflow pipelines live, most likely a
 # subfolder in a code repository

@@ -24,7 +24,9 @@ import imp
 import logging
 import os
 import re
+import socket
 
+from airflow import configuration
 from airflow.exceptions import AirflowException
 
 
@@ -145,3 +147,10 @@ def chain(*tasks):
     """
     for up_task, down_task in zip(tasks[:-1], tasks[1:]):
         up_task.set_downstream(down_task)
+
+
+def get_hostname():
+    """
+    Returns the hostname for this machine from either the config or as provided from the socket
+    """
+    return configuration.get('core', 'hostname') or socket.gethostname()

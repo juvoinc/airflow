@@ -27,6 +27,7 @@ from airflow.www.blueprints import ck, routes
 from airflow import jobs
 from airflow import settings
 from airflow import configuration
+from airflow.utils.helpers import get_hostname
 
 csrf = CsrfProtect()
 
@@ -117,7 +118,7 @@ def create_app(config=None):
         @app.context_processor
         def jinja_globals():
             return {
-                'hostname': socket.gethostname(),
+                'hostname': get_hostname(),
             }
 
         @app.teardown_appcontext

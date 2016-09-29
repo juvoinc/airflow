@@ -38,6 +38,7 @@ from airflow.exceptions import AirflowException
 from airflow.utils.state import State
 from airflow.utils.db import provide_session, pessimistic_connection_handling
 from airflow.utils.email import send_email
+from airflow.utils.helpers import get_hostname
 from airflow.utils.logging import LoggingMixin
 from airflow.utils import asciiart
 
@@ -81,7 +82,7 @@ class BaseJob(Base, LoggingMixin):
             executor=executors.DEFAULT_EXECUTOR,
             heartrate=conf.getfloat('scheduler', 'JOB_HEARTBEAT_SEC'),
             *args, **kwargs):
-        self.hostname = socket.gethostname()
+        self.hostname = get_hostname()
         self.executor = executor
         self.executor_class = executor.__class__.__name__
         self.start_date = datetime.now()

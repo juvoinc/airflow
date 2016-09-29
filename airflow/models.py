@@ -61,7 +61,7 @@ from airflow.utils.dates import cron_presets, date_range as utils_date_range
 from airflow.utils.db import provide_session
 from airflow.utils.decorators import apply_defaults
 from airflow.utils.email import send_email
-from airflow.utils.helpers import (as_tuple, is_container, is_in, validate_key)
+from airflow.utils.helpers import (as_tuple, get_hostname, is_container, is_in, validate_key)
 from airflow.utils.logging import LoggingMixin
 from airflow.utils.state import State
 from airflow.utils.timeout import timeout
@@ -1139,7 +1139,7 @@ class TaskInstance(Base):
         self.clear_xcom_data()
         self.job_id = job_id
         iso = datetime.now().isoformat()
-        self.hostname = socket.gethostname()
+        self.hostname = get_hostname()
         self.operator = task.__class__.__name__
 
         if self.state == State.RUNNING:

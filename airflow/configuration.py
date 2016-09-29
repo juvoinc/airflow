@@ -93,6 +93,7 @@ defaults = {
         'sql_alchemy_pool_recycle': 3600,
         'dagbag_import_timeout': 30,
         'non_pooled_task_slot_count': 128,
+        'hostname': None,
     },
     'operators': {
         'default_owner': 'airflow'

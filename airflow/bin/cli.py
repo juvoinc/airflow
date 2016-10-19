@@ -890,11 +890,20 @@ def serve_logs(args):
     @flask_app.route('/log/<path:filename>')
     def serve_logs(filename):  # noqa
         log = os.path.expanduser(conf.get('core', 'BASE_LOG_FOLDER'))
-        return flask.send_from_directory(
-            log,
-            filename,
-            mimetype="application/json",
-            as_attachment=False)
+        full_log_path = os.path.join(log, filename)
+        if os.path.exists(full_log_path):
+            return flask.send_from_directory(
+                log,
+                filename,
+                mimetype="application/json",
+                as_attachment=False)
+        else:
+            from airflow.utils.logging import S3Log
+            logging.info("local file: %s not found, trying s3 instead" % (full_log_path,))
+            remote_base_log = conf.get('core', 'REMOTE_BASE_LOG_FOLDER')
+            remote_log_path = os.path.join(remote_base_log, filename)
+            return S3Log().read(remote_log_path, return_error=True)
+
     WORKER_LOG_SERVER_PORT = \
         int(conf.get('celery', 'WORKER_LOG_SERVER_PORT'))
     flask_app.run(

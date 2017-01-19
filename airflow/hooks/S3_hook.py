@@ -24,6 +24,7 @@ from urllib.parse import urlparse
 import warnings
 
 import boto
+from boto.regioninfo import get_regions
 from boto.s3.connection import S3Connection
 from boto.sts import STSConnection
 boto.set_stream_logger('boto')
@@ -154,7 +155,16 @@ class S3Hook(BaseHook):
         Returns the boto S3Connection object.
         """
         if self._default_to_boto:
-            return S3Connection(profile_name=self.profile)
+            region = self.extra_params.get('region', 'us-east-1')
+            hostname = None
+            for endpoint in get_regions('s3'):
+                if endpoint.name == region:
+                    hostname = endpoint.endpoint
+                    break
+            if hostname is None:
+                raise ValueError("Unable to find endpoint for region %s" % (region,))
+
+            return S3Connection(host=hostname, profile_name=self.profile)
         a_key = s_key = None
         if self._creds_in_config_file:
             a_key, s_key, calling_format = _parse_s3_config(self.s3_config_file,

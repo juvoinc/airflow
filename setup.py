@@ -189,9 +189,9 @@ devel = [
     'nose-ignore-docstring==0.2',
     'nose-parameterized',
 ]
-devel_minreq = devel + mysql + doc + password + s3 + cgroups
+devel_minreq = devel + mysql + password + s3 + cgroups
 devel_hadoop = devel_minreq + hive + hdfs + webhdfs + kerberos
-devel_all = devel + all_dbs + doc + samba + s3 + slack + crypto + oracle + docker
+devel_all = devel + all_dbs + samba + s3 + slack + crypto + oracle + docker
 
 
 def do_setup():

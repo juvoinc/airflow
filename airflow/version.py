@@ -13,4 +13,4 @@
 # limitations under the License.
 #
 
-version = '1.8.2'
+version = 'juvo_production.1.8.2'

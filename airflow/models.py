@@ -72,12 +72,8 @@ from airflow.utils.dates import cron_presets, date_range as utils_date_range
 from airflow.utils.db import provide_session
 from airflow.utils.decorators import apply_defaults
 from airflow.utils.email import send_email
-<<<<<<< HEAD
 from airflow.utils.helpers import (
-    as_tuple, is_container, is_in, validate_key, pprinttable)
-=======
-from airflow.utils.helpers import (as_tuple, get_hostname, is_container, is_in, validate_key)
->>>>>>> f1bef22f... Use get_hostname instead of socket.gethostname()
+    as_tuple, get_hostname, is_container, is_in, validate_key, pprinttable)
 from airflow.utils.logging import LoggingMixin
 from airflow.utils.operator_resources import Resources
 from airflow.utils.state import State

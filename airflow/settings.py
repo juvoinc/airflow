@@ -74,8 +74,8 @@ LOGGING_LEVEL = logging.INFO
 GUNICORN_WORKER_READY_PREFIX = "[ready] "
 
 # can't move this to conf due to ConfigParser interpolation
-LOG_FORMAT = (
-    '[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s')
+LOG_FORMAT = (os.getenv('AIRFLOW_LOG_FORMAT',
+    '[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s'))
 LOG_FORMAT_WITH_PID = (
     '[%(asctime)s] [%(process)d] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s')
 LOG_FORMAT_WITH_THREAD_NAME = (

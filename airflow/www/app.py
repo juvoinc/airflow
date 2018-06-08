@@ -15,6 +15,7 @@
 import logging
 import socket
 import six
+import os
 
 from flask import Flask
 from flask_admin import Admin, base
@@ -54,7 +55,8 @@ def create_app(config=None, testing=False):
 
     app.register_blueprint(routes)
 
-    log_format = airflow.settings.LOG_FORMAT_WITH_PID
+    log_format = os.getenv(
+        AIRFLOW_LOG_FORMAT, airflow.settings.LOG_FORMAT_WITH_PID)
     airflow.settings.configure_logging(log_format=log_format)
 
     with app.app_context():

@@ -56,7 +56,7 @@ def create_app(config=None, testing=False):
     app.register_blueprint(routes)
 
     log_format = os.getenv(
-        AIRFLOW_LOG_FORMAT, airflow.settings.LOG_FORMAT_WITH_PID)
+        'AIRFLOW_LOG_FORMAT', settings.LOG_FORMAT_WITH_PID)
     airflow.settings.configure_logging(log_format=log_format)
 
     with app.app_context():
